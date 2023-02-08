@@ -16,10 +16,10 @@ spec:
         app: hello-gitops
     spec:
       containers:
-        - image: sania77/github-action:latest
+        - image: sania77/github-action:67c2850
           name: hello-gitops
           ports:
             - name: http
               containerPort: 8080
       imagePullSecrets:
-      - name: registry-esys
+        - name: registry-esys
