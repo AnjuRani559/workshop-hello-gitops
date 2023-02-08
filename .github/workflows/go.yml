@@ -45,6 +45,7 @@ jobs:
       run: |
        cd kustomize/base
        yq -i  eval '.spec.template.spec.containers[].image = "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' deployment.yaml 
+       cat deployment.yaml
 
   deploy:
     name: Deploy
@@ -59,3 +60,5 @@ jobs:
       run: |
         git config --local user.email "sania@wanclouds.net"
         git config --local user.name "sania-123"
+        git commit -am "update image tag with latest commit id ${{ steps.image-tag.outputs.sha_short }}"
+        git push origin master
