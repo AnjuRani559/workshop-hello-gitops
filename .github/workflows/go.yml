@@ -36,11 +36,6 @@ jobs:
         repository: ${{ secrets.DOCKER_USERNAME }}/github-action
         tags: ${{ steps.image-tag.outputs.sha_short  }}
         
-#     - name: Setup Kustomize
-#       uses: imranismail/setup-kustomize@v1
-#       with:
-#         kustomize-version: "3.6.1"
-        
     - name: Update image tag with commit-id
       run: |
        cd kustomize/base
