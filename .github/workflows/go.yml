@@ -36,11 +36,16 @@ jobs:
         repository: ${{ secrets.DOCKER_USERNAME }}/github-action
         tags: ${{ steps.image-tag.outputs.sha_short  }}
         
-    - name: Update image tag with commit-id
+#     - name: Update image tag with commit-id
+#       run: |
+#        cd kustomize/base
+#        yq -i  eval '.spec.template.spec.containers[].image = "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' deployment.yaml 
+#        cat deployment.yaml
+       
+    - name: Update helm manifest of draas-prod instance values.yaml
       run: |
-       cd kustomize/base
-       yq -i  eval '.spec.template.spec.containers[].image = "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' deployment.yaml 
-       cat deployment.yaml
+       cd myapp
+       yq -i  eval '.images.imagetag= "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' values.yaml
          
     - name: Commit files
       run: |
