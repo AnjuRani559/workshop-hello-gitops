@@ -2,7 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    branches:
+     - master
+     - develop
 
 jobs:
   build:
@@ -17,6 +19,10 @@ jobs:
       
     - name: Check out code
       uses: actions/checkout@v2
+      
+    - name: Set outputs
+      id: image-tag
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
     - name: Test
       run: |
@@ -28,18 +34,17 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: ${{ secrets.DOCKER_USERNAME }}/github-action
-        tags: ${{ github.sha }}, latest
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+        tags: ${{ steps.image-tag.outputs.sha_short  }}
         
+    - name: Update image tag with commit-id
+      run: |
+       cd kustomize/base
+       yq -i  eval '.spec.template.spec.containers[].image = "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' deployment.yaml 
+       cat deployment.yaml
+         
     - name: Commit files
       run: |
         git config --local user.email "sania@wanclouds.net"
         git config --local user.name "sania-123"
+        git commit -am "update image tag with latest commit id ${{ steps.image-tag.outputs.sha_short }}"
+        git push origin master
