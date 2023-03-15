@@ -42,7 +42,7 @@ jobs:
 #        yq -i  eval '.spec.template.spec.containers[].image = "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' deployment.yaml 
 #        cat deployment.yaml
        
-    - name: Update helm manifest of draas-prod instance values.yaml
+    - name: Update helm manifest of gitops instance values.yaml
       run: |
        cd myapp
        yq -i  eval '.images.imagetag= "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' values.yaml
