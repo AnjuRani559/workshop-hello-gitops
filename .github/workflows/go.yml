@@ -35,7 +35,7 @@ jobs:
       run: docker build -t sania77/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }} .
       
     - name: push image
-      run: docker push wancloudsinc/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}
+      run: docker push sania77/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}
 
         
 #     - name: Build and push Docker image
