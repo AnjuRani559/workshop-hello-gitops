@@ -75,5 +75,5 @@ jobs:
       run: |
         git config --local user.email "sania@wanclouds.net"
         git config --local user.name "sania-123"
-        git commit -am "update image tag with latest commit id ${{env.BRANCH_NAME}}_${{ steps.image-tag.outputs.sha_short }}"
-        git push origin master
+        git commit -am "update image tag with latest commit id ${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"
+        git push origin ${{ env.BRANCH_NAME }}
