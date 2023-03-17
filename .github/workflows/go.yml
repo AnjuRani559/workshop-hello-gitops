@@ -56,13 +56,13 @@ jobs:
       if: github.ref == 'refs/heads/enhc/master'
       run: |
        cd myapp
-       yq -i  eval '.images.imagetag= "sania77/github-action:${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
+       yq -i  eval '.images.imagetag="sania77/github-action:${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
        
     - name: Update helm manifest of gitops instance values.yaml
       if: github.ref == 'refs/heads/enhc/develop'
       run: |
        cd myapp
-       yq -i  eval '.images.imagetag= "sania77/github-action:${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
+       yq -i  eval '.images.imagetag="sania77/github-action:${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
          
     - name: Commit files
       run: |
