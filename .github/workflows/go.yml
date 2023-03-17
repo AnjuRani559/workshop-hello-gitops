@@ -59,14 +59,14 @@ jobs:
 #        cat deployment.yaml
        
     - name: Update helm manifest of gitops instance values.yaml
-      if: github.ref == 'refs/heads/enhc/master'
+      if: github.ref == 'refs/heads/master'
       run: |
        cd myapp
        yq -i  eval '.images.imagetag="sania77/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
        cat values.yaml
        
     - name: Update helm manifest of gitops instance values.yaml
-      if: github.ref == 'refs/heads/enhc/develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
        cd myapp
        yq -i  eval '.images.imagetag="sania77/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
