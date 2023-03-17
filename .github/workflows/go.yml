@@ -28,13 +28,23 @@ jobs:
       run: |
         CGO_ENABLED=0 go test ./...
         
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v1.1.0
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: ${{ secrets.DOCKER_USERNAME }}/github-action
-        tags: ${{ steps.image-tag.outputs.sha_short  }}
+    - name: Get the branch name
+      run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+      
+    - name: Build image
+      run: docker build -t sania77/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }} .
+      
+    - name: push image
+      run: docker push wancloudsinc/github-action:${{ env.BRANCH_NAME }}_${{ steps.image-tag.outputs.sha_short }}
+
+        
+#     - name: Build and push Docker image
+#       uses: docker/build-push-action@v1.1.0
+#       with:
+#         username: ${{ secrets.DOCKER_USERNAME }}
+#         password: ${{ secrets.DOCKER_PASSWORD }}
+#         repository: ${{ secrets.DOCKER_USERNAME }}/github-action
+#         tags: ${{ steps.image-tag.outputs.sha_short  }}
         
 #     - name: Update image tag with commit-id
 #       run: |
@@ -42,14 +52,21 @@ jobs:
 #        yq -i  eval '.spec.template.spec.containers[].image = "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' deployment.yaml 
 #        cat deployment.yaml
        
-    - name: Update helm manifest of draas-prod instance values.yaml
+    - name: Update helm manifest of gitops instance values.yaml
+      if: github.ref == 'refs/heads/enhc/master'
       run: |
        cd myapp
-       yq -i  eval '.images.imagetag= "sania77/github-action:${{ steps.image-tag.outputs.sha_short }}"' values.yaml
+       yq -i  eval '.images.imagetag= "sania77/github-action:${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
+       
+    - name: Update helm manifest of gitops instance values.yaml
+      if: github.ref == 'refs/heads/enhc/develop'
+      run: |
+       cd myapp
+       yq -i  eval '.images.imagetag= "sania77/github-action:${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"' values.yaml
          
     - name: Commit files
       run: |
         git config --local user.email "sania@wanclouds.net"
         git config --local user.name "sania-123"
-        git commit -am "update image tag with latest commit id ${{ steps.image-tag.outputs.sha_short }}"
+        git commit -am "update image tag with latest commit id ${{env.BRANCH_NAME}_${{ steps.image-tag.outputs.sha_short }}"
         git push origin master
