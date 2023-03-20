@@ -19,7 +19,7 @@ env:
   IBM_CLOUD_REGION: jp-osa
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
   REGISTRY_HOSTNAME: jp2.icr.io
-  IMAGE_NAME: iks-test
+  IMAGE_NAME: github-action
   IKS_CLUSTER: cg8noc0o0un53rib0q70
 
 jobs:
