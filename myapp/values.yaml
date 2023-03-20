@@ -6,7 +6,7 @@
 
 images:
   pullPolicy: Always
-  imagetag: sania77/github-action:master_578f202
+  imagetag: sania77/github-action:master_788aa16
 # serviceAccount:
 #   # Specifies whether a service account should be created
 #   create: true
@@ -43,7 +43,6 @@ images:
 #   #  - secretName: chart-example-tls
 #   #    hosts:
 #   #      - chart-example.local
-
 # resources: {}
 #   # We usually recommend not to specify default resources and to leave this as a conscious
 #   # choice for the user. This also increases chances charts run on environments with little
