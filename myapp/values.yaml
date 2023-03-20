@@ -6,7 +6,7 @@
 
 images:
   pullPolicy: Always
-  imagetag: sania77/github-action:master_8a93468
+  imagetag: sania77/github-action:master_27403d0
 # serviceAccount:
 #   # Specifies whether a service account should be created
 #   create: true
@@ -60,7 +60,6 @@ images:
 #   maxReplicas: 100
 #   targetCPUUtilizationPercentage: 80
 #   # targetMemoryUtilizationPercentage: 80
-
 # nodeSelector: {}
 
 # tolerations: []
