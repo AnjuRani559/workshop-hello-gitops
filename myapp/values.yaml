@@ -6,7 +6,7 @@
 
 images:
   pullPolicy: Always
-  imagetag: sania77/github-action:master_7e97f27
+  imagetag: sania77/github-action:master_578f202
 # serviceAccount:
 #   # Specifies whether a service account should be created
 #   create: true
@@ -28,7 +28,6 @@ images:
 # service:
 #   type: ClusterIP
 #   port: 80
-
 # ingress:
 #   enabled: false
 #   className: ""
