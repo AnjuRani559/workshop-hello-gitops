@@ -6,7 +6,7 @@
 
 images:
   pullPolicy: Always
-  imagetag: sania77/github-action:master_db04c14
+  imagetag: sania77/github-action:master_7e97f27
 # serviceAccount:
 #   # Specifies whether a service account should be created
 #   create: true
@@ -25,7 +25,6 @@ images:
 #   # readOnlyRootFilesystem: true
 #   # runAsNonRoot: true
 #   # runAsUser: 1000
-
 # service:
 #   type: ClusterIP
 #   port: 80
