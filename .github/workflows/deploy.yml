@@ -66,6 +66,6 @@ jobs:
         ibmcloud ks cluster config --cluster $IKS_CLUSTER
         kubectl config current-context
         cd kustomize/base
-        kubectl apply -f namespace.yaml
-        kubectl apply -f service.yaml
-        kubectl apply -f deployment.yaml
+        kubectl create -f namespace.yaml
+        kubectl create -f service.yaml
+        kubectl create -f deployment.yaml
