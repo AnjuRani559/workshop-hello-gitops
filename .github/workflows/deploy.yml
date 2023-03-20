@@ -18,8 +18,8 @@ env:
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
   IBM_CLOUD_REGION: jp-osa
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
-  REGISTRY_HOSTNAME: sania77
-  IMAGE_NAME: github-action
+  REGISTRY_HOSTNAME: jp2.icr.io
+  IMAGE_NAME: iks-test
   IKS_CLUSTER: cg8noc0o0un53rib0q70
   DEPLOYMENT_NAME: kustomize/base
   PORT: 5001
